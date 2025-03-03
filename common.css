@@ -1,0 +1,31 @@
+.bg{
+  background: #F5F5F5;
+}
+.title {
+    font-family: Literata;
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 80px;
+    letter-spacing: 0%;
+    text-align: center;
+    padding-bottom: 30px;
+    color: #3C4852;
+  }
+
+  .div-center{
+    text-align: center;
+}
+.button{
+    border-radius: 9.27px;
+    border: 1.74px solid #BE0006;
+    background: #BE0006 ;
+    font-family: Literata;
+font-weight: 600;
+font-size: 23.18px;
+line-height: 34.43px;
+letter-spacing: 0%;
+color: #FFFFFF;
+padding: 10px 70px;
+margin-bottom:30px;
+
+}

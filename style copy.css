@@ -45,7 +45,6 @@ body {
     font-family: Literata;
     font-weight: 400;
     font-size: 18px;
-    padding-right: 30px;
     /* font-size: 20px; */
     line-height: 29.7px;
     letter-spacing: 0%;
@@ -53,8 +52,7 @@ body {
 
 .input {
     /* width: 420px; */
-    width: 300px;
-    margin-left: 20px;
+    width: 380px;
     height: 51px;
     border-radius: 8px;
     border: 1.5px solid #848A8F !important;
@@ -108,45 +106,6 @@ body {
 /* header style end  */
 
 /* navbar style start */
-.container-fluid{
-    --bs-gutter-x: 0rem !important;
-    padding: 0px 110px !important;
-}
-/* .navbar-collapse {
-    flex-basis: 0% !important;
-      
-      } */
-      .navbar-collapse {
-        flex-grow: 0 !important;
-        justify-content:space-between !important ;
-                      
-   }
-   .nav-item>a{
-    text-decoration: none;
-    color: #3C4852 
-   }
-@media screen  and (max-width:992px){
-    .container-fluid{
-        padding: 0px 10px !important;
-        /* border-width: 1.5px;
-        background: #BE0006;
-        border: 1.5px solid #BE0006;
-        box-shadow: 3px 4px 10px 0px #A5A5A540;
-        color: #FFFFFF; */
-    }
-    .navbar-toggler:focus{
-        box-shadow: none !important;
-        border-width: 1.5px;
-        border: 1.5px solid #BE0006;
-        color: #BE0006;
-
-    }
-    .navbar-collapse {
-     flex-grow: 1 !important;
-
-                   
-}
-}
 .navbar_container {
     /* height: 120px; */
     background: aliceblue;
@@ -378,19 +337,7 @@ border-radius: 50px;
     justify-content: center;
     align-items: center;
 }
-.engagement-section-container{
-/* display: flex;
-justify-content: space-between;
-align-items: center;
-border: 4px solid purple; */
 
-}
-.engagement-section1,.engagement-section2{
-    /* display: flex;
-    justify-content:space-around;
-    align-items: center;
-    border: 4px solid orange; */
-}
 .para-short {
     font-family: Literata;
     font-weight: 500;
@@ -427,22 +374,17 @@ border: 4px solid purple; */
 @media screen and (max-width:768px) {
     .engagement-section-container {
         flex-direction: column;
-     justify-content: start !important;
-     align-items: start !important;
-        background-color: #BE0006;
     }
 
     .engagement-section1 {
         border: 2px solid green;
         justify-content: space-between;
-        align-items: start !important;
         /* align-items: start; */
     }
 
     .engagement-section2 {
         margin: 20px 0px;
         border: 2px solid red;
-   
         /* align-items: start !important; */
     }
 }
