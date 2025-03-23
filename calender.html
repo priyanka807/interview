@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Date Picker</title>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <style>
+        /* Hide previous and next month dates (create empty spaces) */
+        .daterangepicker td.off {
+            visibility: hidden;
+        }
+
+        /* Light color for disabled past dates */
+        .daterangepicker td.disabled {
+            color: #d3d3d3 !important; /* Light grey */
+            pointer-events: none; /* Prevent selection */
+        }
+
+        /* Light color for past dates but still clickable */
+        .daterangepicker td.past-date {
+            color: #d3d3d3 !important; /* Light grey */
+        }
+        .drp-buttons {
+            display: none !important;
+        }
+
+        /* Custom styling for month selection modal */
+        .month-select {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 9999;
+            width: 100px;
+            text-align: center;
+            top: 67px;
+            left: 6%;
+        }
+        .month-select div {
+            padding: 5px;
+            cursor: pointer;
+        }
+        .month-select div:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="daterange" />
+
+    <div class="month-select" id="monthSelect"></div>
+
+    <script>
+    $(function () {
+        let today = moment(); // Current date
+        let startDate = today.clone().add(1, 'days'); // Start from next day
+            let endDate = startDate.clone().add(1, 'days'); // Allow only two days (Sunday & Monday)
+    
+        $('#daterange').daterangepicker({
+            autoUpdateInput: true,
+            opens: 'left',
+            startDate: startDate,
+            endDate: endDate,
+            locale: {
+                format: 'ddd, D MMM',
+                daysOfWeek: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                monthNames: [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ],
+            }
+        });
+
+        $('#daterange').on('show.daterangepicker', function (ev, picker) {
+            let monthButton = picker.container.find('.drp-calendar .month');
+
+            // Add click event to month name to open month selection
+            monthButton.off('click').on('click', function () {
+                let offset = $(this).offset();
+                let monthSelect = $('#monthSelect');
+                monthSelect.empty();
+
+                // Create month list
+                for (let i = 0; i < 12; i++) {
+                    let monthName = moment().month(i).format("MMMM");
+                    monthSelect.append(`<div data-month="${i}">${monthName}</div>`);
+                }
+
+                // Show month selection modal near the clicked month name
+                monthSelect.css({                
+                    display: 'block'
+                });
+
+                // Handle month selection
+                $('.month-select div').off('click').on('click', function () {
+                    let selectedMonth = $(this).data('month');
+                    let newDate = moment([today.year(), selectedMonth, 1]);
+
+                    // Update date picker to show selected month
+                    picker.setStartDate(newDate);
+                    picker.setEndDate(newDate.endOf('month'));
+                    picker.updateView();
+                    monthSelect.hide();
+                });
+            });
+        });
+
+        // Hide month selection if clicked outside
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.month-select, .month').length) {
+                $('#monthSelect').hide();
+            }
+        });
+
+    });
+    </script>
+    
+</body>
+</html>
