@@ -1,0 +1,1 @@
+console.log("substract two digits") 
