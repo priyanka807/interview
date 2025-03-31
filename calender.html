@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +15,10 @@
         .daterangepicker td.off {
             visibility: hidden;
         }
-
+        .daterangepicker td.disabled {
+             visibility: visible !important;
+        
+        }
         /* Light color for disabled past dates */
         .daterangepicker td.disabled {
             color: #d3d3d3 !important; /* Light grey */
@@ -63,14 +64,17 @@
     <script>
     $(function () {
         let today = moment(); // Current date
-        let startDate = today.clone().add(1, 'days'); // Start from next day
-            let endDate = startDate.clone().add(1, 'days'); // Allow only two days (Sunday & Monday)
-    
+        let endDate = today.clone().add(1, 'days'); // Start from next day
+
+        let maxMonth = today.clone().add(3, 'months'); // ✅ ADDED: Limit to 6 months
+  
         $('#daterange').daterangepicker({
             autoUpdateInput: true,
             opens: 'left',
-            startDate: startDate,
+            startDate: today,
             endDate: endDate,
+            minDate:today,
+            maxDate: maxMonth, 
             locale: {
                 format: 'ddd, D MMM',
                 daysOfWeek: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -79,27 +83,26 @@
                     "July", "August", "September", "October", "November", "December"
                 ],
             }
+            
         });
 
         $('#daterange').on('show.daterangepicker', function (ev, picker) {
             let monthButton = picker.container.find('.drp-calendar .month');
+            console.log(monthButton, 'monthButton');
 
             // Add click event to month name to open month selection
             monthButton.off('click').on('click', function () {
-                let offset = $(this).offset();
                 let monthSelect = $('#monthSelect');
                 monthSelect.empty();
 
-                // Create month list
-                for (let i = 0; i < 12; i++) {
-                    let monthName = moment().month(i).format("MMMM");
-                    monthSelect.append(`<div data-month="${i}">${monthName}</div>`);
+                // Create month list (limited to 6 months)
+                for (let i = 0; i < 12; i++) {  // ✅ ADDED: Show only next 6 months
+                    let monthName = moment().month(today.month() + i).format("MMMM");
+                    monthSelect.append(`<div data-month="${today.month() + i}">${monthName}</div>`);
                 }
 
-                // Show month selection modal near the clicked month name
-                monthSelect.css({                
-                    display: 'block'
-                });
+                // Show month selection modal
+                monthSelect.css({ display: 'block' });
 
                 // Handle month selection
                 $('.month-select div').off('click').on('click', function () {
